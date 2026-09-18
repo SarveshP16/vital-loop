@@ -6,6 +6,12 @@ All notable changes to Vital Loop are documented here.
 
 ### Added
 
+- Ko-fi support link in the README.
+
+## [1.0.0] - 2026-09-18
+
+### Added
+
 - Initial app scaffold: Flutter + Riverpod (plain `Notifier`s, no code-gen) + go_router (`StatefulShellRoute`, Home/Stats/Settings bottom nav) + Hive for local, offline-first storage.
 - **Home** screen matching the supplied mockup: a "Next up" banner showing the soonest reminder across all activities with a live countdown, the first activity rendered as a full-width progress-bar hero card, and every other activity as a square grid card with a `+amount` log button. A streak pill (top right) counts consecutive days every scheduled activity's daily goal was fully met.
 - **Stats** screen: one card per activity showing its real logged total for whichever period (Daily/Weekly/Monthly) that activity was configured to feature — summed from actual daily logs, not a projected target.

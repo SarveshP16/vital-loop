@@ -86,6 +86,11 @@ lib/
     shell/         # Bottom navigation shell
 ```
 
+## Support
+
+If Vital Loop is useful to you, you can support its development on Ko-fi:
+[ko-fi.com/crystaxit](https://ko-fi.com/crystaxit).
+
 ## License
 
 MIT — see [LICENSE](LICENSE).
