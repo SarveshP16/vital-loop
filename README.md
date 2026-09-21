@@ -25,6 +25,17 @@
 - **Reminders stop once you're done.** Hit your daily goal early and every
   remaining reminder for that activity is cancelled for the rest of the day
   — no more nagging after the fact.
+- **One reminder at a time.** An unread reminder is replaced by the next one
+  for that activity instead of piling up in your notification shade, and
+  editing or deleting an activity never leaves stale reminders behind.
+- **Goals are a hard cap.** Logging can't push an activity past its daily
+  goal — the last `+` is trimmed to what's left (95/100 + 10 → 100/100), and
+  the button dims once the goal is met.
+- **Square tiles on Home.** Every activity is the same square tile showing
+  progress (`logged/goal`) and a one-tap `+amount` button, with a "Next up"
+  banner for the soonest reminder.
+- **Light and dark mode.** A sun/moon button at the top right of Settings
+  switches the whole app between themes; your choice is remembered.
 - **Office day toggle.** A one-tap switch that mutes every reminder and
   excludes the day from your stats and streak. Turns itself back off the
   next day automatically, so you never have to remember to re-enable it.
@@ -46,6 +57,14 @@
   fully editable or deletable like anything you add yourself.
 - **Offline-first.** Everything is stored locally on-device (Hive); no
   account, no network dependency, no cloud sync.
+
+## Install
+
+Download the latest `VitalLoop-<version>-release.apk` from the
+[Releases](../../releases) page and open it on your Android phone (you may
+need to allow installs from your browser). It requires Android 7.0 (API 24)
+or newer. Installing a newer release over an older one keeps your activities
+and history. The installed version is shown at the bottom of Settings.
 
 ## Tech stack
 
@@ -73,16 +92,21 @@ flutter build apk --debug
 flutter build apk --release
 ```
 
+The signed release APK is written to
+`build/app/outputs/apk/release/VitalLoop-<version>-release.apk`, where
+`<version>` comes from `version:` in `pubspec.yaml`. See
+[CHANGELOG.md](CHANGELOG.md) for what changed in each release.
+
 ## Project structure
 
 ```
 lib/
-  core/            # Theme, shared widgets, notifications, settings, storage
+  core/            # Theme (light/dark colour tokens), shared widgets, notifications, settings, storage
   features/
     activities/    # Activity domain model, Hive repository, Riverpod providers
-    home/          # Home screen and its cards/banners
+    home/          # Home screen, activity tiles and banners
     stats/         # Stats screen
-    settings/      # Settings screen, add/edit activity form
+    settings/      # Settings screen (toggles, theme switch), add/edit activity form
     shell/         # Bottom navigation shell
 ```
 
