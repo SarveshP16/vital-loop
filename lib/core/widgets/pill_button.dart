@@ -7,7 +7,8 @@ import '../theme/app_colors.dart';
 class PillButton extends StatelessWidget {
   final String label;
   final Color color;
-  final VoidCallback onTap;
+  /// Null disables the button (dimmed, no ripple).
+  final VoidCallback? onTap;
   final EdgeInsetsGeometry padding;
 
   const PillButton({
@@ -20,26 +21,29 @@ class PillButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(20),
-        child: Container(
-          width: double.infinity,
-          padding: padding,
-          decoration: BoxDecoration(
-            color: color,
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: AppColors.ink, width: 2),
-          ),
-          alignment: Alignment.center,
-          child: Text(
-            label,
-            style: const TextStyle(
-              fontWeight: FontWeight.w800,
-              fontSize: 16,
-              color: AppColors.ink,
+    return Opacity(
+      opacity: onTap == null ? 0.45 : 1,
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(20),
+          child: Container(
+            width: double.infinity,
+            padding: padding,
+            decoration: BoxDecoration(
+              color: color,
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(color: context.colors.ink, width: 2),
+            ),
+            alignment: Alignment.center,
+            child: Text(
+              label,
+              style: TextStyle(
+                fontWeight: FontWeight.w800,
+                fontSize: 16,
+                color: context.colors.onAccent,
+              ),
             ),
           ),
         ),

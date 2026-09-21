@@ -85,10 +85,24 @@ class DailyLogsNotifier extends Notifier<Map<String, int>> {
     return total;
   }
 
+  /// Adds [amount] to [activityId]'s total for [date], never letting the
+  /// total pass that activity's `dailyGoal` (a final +10 on 95/100 logs only
+  /// 5). Does nothing once the goal is already met.
   Future<void> addAmount(String activityId, DateTime date, int amount) async {
     final key = buildLogKey(activityId, date);
-    final newValue = await ref.read(activitiesRepositoryProvider).addAmount(activityId, date, amount);
+    final current = amountFor(activityId, date);
+    var newValue = current + amount;
+    for (final activity in ref.read(activitiesProvider)) {
+      if (activity.id == activityId && newValue > activity.dailyGoal) {
+        newValue = activity.dailyGoal;
+      }
+    }
+    if (newValue <= current) return;
+
+    // State is updated before the awaited Hive write so a rapid second tap
+    // already sees this total and can't slip past the cap.
     state = {...state, key: newValue};
+    await ref.read(activitiesRepositoryProvider).setAmount(activityId, date, newValue);
 
     // Re-check today's reminders — if this log just met the daily goal, the
     // rest of today's already-scheduled reminders for this activity should

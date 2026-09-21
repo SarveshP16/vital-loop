@@ -10,15 +10,21 @@ import '../utils/date_keys.dart';
 /// on/off date: every time [markTodayIfOnTrip] runs (called alongside the
 /// app's existing "refresh today" hooks — startup, resume, log, activity
 /// edit) while `enabled` is true, today's date gets added to that history.
-/// So a 4-day trip naturally accumulates 4 muted dates for Stats purposes,
-/// and turning it off simply stops the history from growing further — past
-/// trip days stay excluded from Stats forever, exactly like office days do.
+/// So a 4-day trip naturally accumulates 4 muted dates for Stats purposes.
+/// Turning it off stops the history growing and un-mutes *today* (today's
+/// date is removed) — earlier trip days stay excluded from Stats forever,
+/// exactly like office days do.
 class TripNotifier extends Notifier<({bool enabled, Set<String> days})> {
   @override
   ({bool enabled, Set<String> days}) build() {
     final enabled = HiveBoxes.settingsBox.get('onTripEnabled', defaultValue: false) as bool;
     final stored = HiveBoxes.settingsBox.get('tripDays', defaultValue: <dynamic>[]) as List;
-    return (enabled: enabled, days: stored.cast<String>().toSet());
+    final days = stored.cast<String>().toSet();
+    // Older builds left today's date behind when the switch was turned off,
+    // so a switched-off trip could still mute today. Today is never a trip
+    // day while the switch is off.
+    if (!enabled) days.remove(dayKey(DateTime.now()));
+    return (enabled: enabled, days: days);
   }
 
   bool get isEnabled => state.enabled;
@@ -26,10 +32,12 @@ class TripNotifier extends Notifier<({bool enabled, Set<String> days})> {
   bool isTripDay(DateTime date) => state.days.contains(dayKey(date));
 
   Future<void> setEnabled(bool value) async {
-    var days = state.days;
-    if (value) {
-      days = {...days, dayKey(DateTime.now())};
-    }
+    final todayKey = dayKey(DateTime.now());
+    // Turning it off also drops today from the history — otherwise today
+    // still counts as a trip day (Home keeps its "On trip" banner, reminders
+    // stay muted, Stats keep excluding it) until midnight. Earlier days of
+    // the trip stay recorded.
+    final days = value ? {...state.days, todayKey} : ({...state.days}..remove(todayKey));
     state = (enabled: value, days: days);
     await HiveBoxes.settingsBox.put('onTripEnabled', value);
     await HiveBoxes.settingsBox.put('tripDays', days.toList());

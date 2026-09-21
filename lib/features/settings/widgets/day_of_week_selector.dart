@@ -29,15 +29,15 @@ class DayOfWeekSelector extends StatelessWidget {
             height: 38,
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              color: isSelected ? AppColors.navActive : Colors.white,
+              color: isSelected ? context.colors.navActive : context.colors.surface,
               shape: BoxShape.circle,
-              border: Border.all(color: AppColors.ink, width: 2),
+              border: Border.all(color: context.colors.ink, width: 2),
             ),
             child: Text(
               _dayLabels[index],
               style: TextStyle(
                 fontWeight: FontWeight.w800,
-                color: isSelected ? Colors.white : AppColors.ink,
+                color: isSelected ? Colors.white : context.colors.ink,
               ),
             ),
           ),

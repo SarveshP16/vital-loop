@@ -20,9 +20,9 @@ class TripCard extends ConsumerWidget {
       margin: const EdgeInsets.only(bottom: 20),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: context.colors.surface,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: AppColors.ink, width: 2),
+        border: Border.all(color: context.colors.ink, width: 2),
       ),
       child: Row(
         children: [
@@ -35,7 +35,7 @@ class TripCard extends ConsumerWidget {
                 Text(
                   'Mutes all reminders and excludes days from Stats until '
                   'you turn this off — it does not disable itself.',
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.subtleText),
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(color: context.colors.subtleText),
                 ),
               ],
             ),

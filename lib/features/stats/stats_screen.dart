@@ -19,7 +19,7 @@ class StatsScreen extends ConsumerWidget {
           ? Center(
               child: Text(
                 'Add an activity to see your stats.',
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(color: AppColors.subtleText),
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(color: context.colors.subtleText),
               ),
             )
           : ListView(
@@ -28,7 +28,7 @@ class StatsScreen extends ConsumerWidget {
                 Text(
                   'Stats',
                   style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                        color: AppColors.titlePurple,
+                        color: context.colors.titlePurple,
                         fontWeight: FontWeight.w700,
                       ),
                 ),

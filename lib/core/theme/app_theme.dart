@@ -5,15 +5,19 @@ import 'app_colors.dart';
 class AppTheme {
   AppTheme._();
 
-  static ThemeData get light {
+  static ThemeData get light => _build(Brightness.light, AppColors.light);
+  static ThemeData get dark => _build(Brightness.dark, AppColors.dark);
+
+  static ThemeData _build(Brightness brightness, AppColors colors) {
     final base = ThemeData(
       useMaterial3: true,
-      brightness: Brightness.light,
-      scaffoldBackgroundColor: AppColors.background,
+      brightness: brightness,
+      scaffoldBackgroundColor: colors.background,
       colorScheme: ColorScheme.fromSeed(
-        seedColor: AppColors.navActive,
-        brightness: Brightness.light,
+        seedColor: colors.navActive,
+        brightness: brightness,
       ),
+      extensions: [colors],
     );
 
     final headingFont = GoogleFonts.baloo2TextTheme(base.textTheme);
@@ -29,9 +33,9 @@ class AppTheme {
         headlineSmall: headingFont.headlineSmall?.copyWith(fontWeight: FontWeight.w700),
         titleLarge: headingFont.titleLarge?.copyWith(fontWeight: FontWeight.w700),
       ),
-      appBarTheme: const AppBarTheme(
-        backgroundColor: AppColors.background,
-        foregroundColor: AppColors.ink,
+      appBarTheme: AppBarTheme(
+        backgroundColor: colors.background,
+        foregroundColor: colors.ink,
         elevation: 0,
       ),
     );

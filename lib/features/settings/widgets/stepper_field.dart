@@ -63,11 +63,11 @@ class _StepButton extends StatelessWidget {
           width: 34,
           height: 34,
           decoration: BoxDecoration(
-            color: disabled ? const Color(0xFFF0EBE0) : Colors.white,
+            color: disabled ? context.colors.surfaceDisabled : context.colors.surface,
             shape: BoxShape.circle,
-            border: Border.all(color: AppColors.ink, width: 2),
+            border: Border.all(color: context.colors.ink, width: 2),
           ),
-          child: Icon(icon, size: 18, color: disabled ? AppColors.subtleText : AppColors.ink),
+          child: Icon(icon, size: 18, color: disabled ? context.colors.subtleText : context.colors.ink),
         ),
       ),
     );

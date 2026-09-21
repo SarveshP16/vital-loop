@@ -28,7 +28,7 @@ class ActivityIconChip extends StatelessWidget {
       decoration: BoxDecoration(
         color: background,
         borderRadius: BorderRadius.circular(size * 0.32),
-        border: Border.all(color: AppColors.ink, width: 2),
+        border: Border.all(color: context.colors.ink, width: 2),
       ),
       alignment: Alignment.center,
       child: builtInIcon != null

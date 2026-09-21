@@ -65,12 +65,15 @@ class NotificationService {
 
   /// Schedules a single one-off notification at [time]. Does nothing if
   /// [time] is already in the past (the reminder scheduler only ever passes
-  /// still-upcoming times, but this is a safe no-op either way).
+  /// still-upcoming times, but this is a safe no-op either way). If
+  /// [timeoutAfter] is set the notification removes itself that long after it
+  /// is posted.
   static Future<void> scheduleOnce({
     required int id,
     required String title,
     required String body,
     required DateTime time,
+    Duration? timeoutAfter,
   }) async {
     final scheduledDate = tz.TZDateTime.from(time, tz.local);
     if (!scheduledDate.isAfter(tz.TZDateTime.now(tz.local))) return;
@@ -80,13 +83,14 @@ class NotificationService {
       scheduledDate: scheduledDate,
       title: title,
       body: body,
-      notificationDetails: const NotificationDetails(
+      notificationDetails: NotificationDetails(
         android: AndroidNotificationDetails(
           channelId,
           'Activity reminders',
           channelDescription: 'Nudges to drink water, move, and hit your daily goals',
           importance: Importance.high,
           priority: Priority.high,
+          timeoutAfter: timeoutAfter?.inMilliseconds,
         ),
       ),
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,

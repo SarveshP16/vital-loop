@@ -19,7 +19,7 @@ class ActivityListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final palette = AppColors.paletteFor(activity.colorIndex);
+    final palette = context.colors.paletteFor(activity.colorIndex);
     return Dismissible(
       key: ValueKey(activity.id),
       direction: DismissDirection.endToStart,
@@ -27,10 +27,10 @@ class ActivityListTile extends StatelessWidget {
         alignment: Alignment.centerRight,
         padding: const EdgeInsets.only(right: 20),
         decoration: BoxDecoration(
-          color: const Color(0xFFF7B2B2),
+          color: context.colors.deleteBackground,
           borderRadius: BorderRadius.circular(20),
         ),
-        child: const Icon(Icons.delete_outline, color: AppColors.ink),
+        child: Icon(Icons.delete_outline, color: context.colors.ink),
       ),
       confirmDismiss: (_) => _confirmDelete(context),
       onDismissed: (_) => onDelete(),
@@ -38,9 +38,9 @@ class ActivityListTile extends StatelessWidget {
         margin: const EdgeInsets.only(bottom: 12),
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: context.colors.surface,
           borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: AppColors.ink, width: 2),
+          border: Border.all(color: context.colors.ink, width: 2),
         ),
         child: InkWell(
           onTap: onTap,
@@ -63,12 +63,12 @@ class ActivityListTile extends StatelessWidget {
                     Text(
                       '${activity.activeWindow.start.format(context)}–${activity.activeWindow.end.format(context)}'
                       ' · ~${reminderCountFor(activity)}/day · ${activity.perReminderAmount} ${activity.unit} · goal ${activity.dailyGoal}',
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.subtleText),
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(color: context.colors.subtleText),
                     ),
                   ],
                 ),
               ),
-              const Icon(Icons.chevron_right, color: AppColors.subtleText),
+              Icon(Icons.chevron_right, color: context.colors.subtleText),
             ],
           ),
         ),

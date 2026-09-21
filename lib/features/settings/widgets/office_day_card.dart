@@ -21,9 +21,9 @@ class OfficeDayCard extends ConsumerWidget {
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: context.colors.surface,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: AppColors.ink, width: 2),
+        border: Border.all(color: context.colors.ink, width: 2),
       ),
       child: Row(
         children: [
@@ -36,7 +36,7 @@ class OfficeDayCard extends ConsumerWidget {
                 Text(
                   'Mutes all reminders and excludes today from Stats. '
                   'Turns itself off again tomorrow.',
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.subtleText),
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(color: context.colors.subtleText),
                 ),
               ],
             ),

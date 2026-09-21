@@ -7,7 +7,6 @@ import '../../core/theme/app_colors.dart';
 import '../activities/application/activities_providers.dart';
 import '../activities/application/derived_providers.dart';
 import 'widgets/grid_activity_card.dart';
-import 'widgets/hero_activity_card.dart';
 import 'widgets/muted_day_banner.dart';
 import 'widgets/next_up_banner.dart';
 import 'widgets/streak_pill.dart';
@@ -40,7 +39,7 @@ class HomeScreen extends ConsumerWidget {
                     Text(
                       'Vital Loop',
                       style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                            color: AppColors.titlePurple,
+                            color: context.colors.titlePurple,
                             fontWeight: FontWeight.w700,
                           ),
                     ),
@@ -66,37 +65,27 @@ class HomeScreen extends ConsumerWidget {
                   NextUpBanner(info: nextUp),
                   const SizedBox(height: 20),
                 ],
-                HeroActivityCard(
-                  activity: activities.first,
-                  loggedAmount: logs.amountFor(activities.first.id, today),
-                  onAdd: () => ref
-                      .read(dailyLogsProvider.notifier)
-                      .addAmount(activities.first.id, today, activities.first.perReminderAmount),
-                ),
-                if (activities.length > 1) ...[
-                  const SizedBox(height: 20),
-                  GridView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: activities.length - 1,
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 16,
-                      crossAxisSpacing: 16,
-                      childAspectRatio: 0.82,
-                    ),
-                    itemBuilder: (context, index) {
-                      final activity = activities[index + 1];
-                      return GridActivityCard(
-                        activity: activity,
-                        loggedAmount: logs.amountFor(activity.id, today),
-                        onAdd: () => ref
-                            .read(dailyLogsProvider.notifier)
-                            .addAmount(activity.id, today, activity.perReminderAmount),
-                      );
-                    },
+                GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: activities.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 16,
+                    crossAxisSpacing: 16,
+                    childAspectRatio: 0.82,
                   ),
-                ],
+                  itemBuilder: (context, index) {
+                    final activity = activities[index];
+                    return GridActivityCard(
+                      activity: activity,
+                      loggedAmount: logs.amountFor(activity.id, today),
+                      onAdd: () => ref
+                          .read(dailyLogsProvider.notifier)
+                          .addAmount(activity.id, today, activity.perReminderAmount),
+                    );
+                  },
+                ),
               ],
             ),
     );
@@ -114,7 +103,7 @@ class _EmptyHome extends StatelessWidget {
         child: Text(
           'No activities yet.\nAdd one from Settings to get started.',
           textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.titleMedium?.copyWith(color: AppColors.subtleText),
+          style: Theme.of(context).textTheme.titleMedium?.copyWith(color: context.colors.subtleText),
         ),
       ),
     );

@@ -22,7 +22,7 @@ class GridActivityCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final palette = AppColors.paletteFor(activity.colorIndex);
+    final palette = context.colors.paletteFor(activity.colorIndex);
     return HardShadowBox(
       color: palette.background,
       padding: const EdgeInsets.all(16),
@@ -37,7 +37,7 @@ class GridActivityCard extends StatelessWidget {
           Text(
             activity.name,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  color: AppColors.ink,
+                  color: context.colors.ink,
                   fontWeight: FontWeight.w700,
                 ),
             textAlign: TextAlign.center,
@@ -50,14 +50,14 @@ class GridActivityCard extends StatelessWidget {
                 TextSpan(
                   text: '$loggedAmount',
                   style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                        color: AppColors.ink,
+                        color: context.colors.ink,
                         fontWeight: FontWeight.w800,
                       ),
                 ),
                 TextSpan(
                   text: '/${activity.dailyGoal}',
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        color: AppColors.subtleText,
+                        color: context.colors.subtleText,
                         fontWeight: FontWeight.w600,
                       ),
                 ),
@@ -68,7 +68,7 @@ class GridActivityCard extends StatelessWidget {
           PillButton(
             label: '+${activity.perReminderAmount}',
             color: palette.button,
-            onTap: onAdd,
+            onTap: loggedAmount >= activity.dailyGoal ? null : onAdd,
           ),
         ],
       ),

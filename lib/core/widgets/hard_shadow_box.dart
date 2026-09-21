@@ -29,7 +29,7 @@ class HardShadowBox extends StatelessWidget {
         borderRadius: borderRadius,
         boxShadow: [
           BoxShadow(
-            color: AppColors.ink,
+            color: context.colors.ink,
             offset: shadowOffset,
             blurRadius: 0,
             spreadRadius: 0,
@@ -41,7 +41,7 @@ class HardShadowBox extends StatelessWidget {
         decoration: BoxDecoration(
           color: color,
           borderRadius: borderRadius,
-          border: Border.all(color: AppColors.ink, width: borderWidth),
+          border: Border.all(color: context.colors.ink, width: borderWidth),
         ),
         child: child,
       ),

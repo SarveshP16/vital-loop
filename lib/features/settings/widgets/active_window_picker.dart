@@ -63,14 +63,14 @@ class _TimeButton extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 12),
         decoration: BoxDecoration(
-          color: AppColors.background,
+          color: context.colors.background,
           borderRadius: BorderRadius.circular(14),
-          border: Border.all(color: AppColors.ink, width: 2),
+          border: Border.all(color: context.colors.ink, width: 2),
         ),
         alignment: Alignment.center,
         child: Column(
           children: [
-            Text(label, style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.subtleText)),
+            Text(label, style: Theme.of(context).textTheme.bodySmall?.copyWith(color: context.colors.subtleText)),
             Text(
               time.format(context),
               style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),

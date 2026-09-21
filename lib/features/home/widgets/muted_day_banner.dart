@@ -16,7 +16,7 @@ class MutedDayBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return HardShadowBox(
-      color: const Color(0xFFFBE3C4),
+      color: context.colors.warningBackground,
       padding: const EdgeInsets.all(16),
       child: Row(
         children: [
@@ -29,13 +29,13 @@ class MutedDayBanner extends StatelessWidget {
                 Text(
                   title,
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        color: AppColors.ink,
+                        color: context.colors.ink,
                         fontWeight: FontWeight.w700,
                       ),
                 ),
                 Text(
                   message,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.subtleText),
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: context.colors.subtleText),
                 ),
               ],
             ),

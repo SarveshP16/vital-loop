@@ -11,19 +11,19 @@ class StreakPill extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       decoration: BoxDecoration(
-        color: AppColors.streakBackground,
+        color: context.colors.streakBackground,
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: AppColors.ink, width: 2),
+        border: Border.all(color: context.colors.ink, width: 2),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Icon(Icons.local_fire_department, color: AppColors.streakForeground, size: 20),
+          Icon(Icons.local_fire_department, color: context.colors.streakForeground, size: 20),
           const SizedBox(width: 6),
           Text(
             '$streak',
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  color: AppColors.streakForeground,
+                  color: context.colors.streakForeground,
                   fontWeight: FontWeight.w800,
                 ),
           ),

@@ -11,6 +11,7 @@ import 'package:hive/hive.dart';
 
 import 'package:vital_loop/core/storage/hive_boxes.dart';
 import 'package:vital_loop/features/home/home_screen.dart';
+import 'package:vital_loop/features/home/widgets/grid_activity_card.dart';
 
 void main() {
   late Directory tempDir;
@@ -43,5 +44,23 @@ void main() {
     expect(find.text('Water'), findsOneWidget);
     expect(find.text('Push-ups'), findsOneWidget);
     expect(find.text('Squats'), findsOneWidget);
+  });
+
+  testWidgets('Every activity, including the first, is the same square tile', (tester) async {
+    await tester.runAsync(() async {
+      await tester.pumpWidget(
+        const ProviderScope(child: MaterialApp(home: HomeScreen())),
+      );
+      await tester.pump();
+      await Future<void>.delayed(const Duration(milliseconds: 50));
+      await tester.pump();
+    });
+
+    final tiles = find.byType(GridActivityCard);
+    expect(tiles, findsNWidgets(3));
+    final first = tester.getSize(tiles.at(0));
+    for (var i = 1; i < 3; i++) {
+      expect(tester.getSize(tiles.at(i)), first);
+    }
   });
 }

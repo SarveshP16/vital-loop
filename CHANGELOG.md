@@ -4,9 +4,24 @@ All notable changes to Vital Loop are documented here.
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-09-22
+
 ### Added
 
 - Ko-fi support link in the README.
+- The app version is now shown in small text at the bottom of Settings (read from the installed build, so it always matches).
+- **Dark mode**: a sun/moon toggle at the top right of Settings switches the whole app between light and dark, and the choice is remembered across launches (defaults to light). Colours are now theme tokens (`context.colors`) instead of hard-coded constants; status/navigation bar icons follow the app theme.
+
+### Changed
+
+- Home now shows every activity as the same square tile — the first activity is no longer a wide progress-bar card.
+- Version bumped to 1.1.0 (build 2).
+
+### Fixed
+
+- Logged amounts can no longer exceed an activity's daily goal (the final `+` is trimmed to what's left, e.g. 95/100 + 10 → 100/100). The `+` button is dimmed once the goal is met, and rapid taps can't slip past the cap.
+- Duplicate/stale reminder notifications: every reschedule now cancels all pending reminders first (previously, editing an activity to need fewer reminders or deleting it left its old alarms firing), overlapping reschedules are serialized, reminder ids no longer rely on `Object.hash`, and each reminder now expires when the activity's next one is due instead of stacking up in the notification shade.
+- Turning **On trip** off left today marked as a trip day, so Home kept showing the "On trip" banner (and reminders stayed muted) until midnight. Switching it off now un-mutes today immediately; earlier trip days stay excluded from Stats. A stale "today" left behind by older builds is also cleared on launch.
 
 ## [1.0.0] - 2026-09-18
 

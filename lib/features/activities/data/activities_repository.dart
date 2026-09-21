@@ -33,11 +33,9 @@ class ActivitiesRepository {
     return HiveBoxes.dailyLogsBox.get(buildLogKey(activityId, date)) ?? 0;
   }
 
-  Future<int> addAmount(String activityId, DateTime date, int amount) async {
-    final key = buildLogKey(activityId, date);
-    final newValue = (HiveBoxes.dailyLogsBox.get(key) ?? 0) + amount;
-    await HiveBoxes.dailyLogsBox.put(key, newValue);
-    return newValue;
+  /// Persists an absolute [value] (the notifier owns the add-and-cap logic).
+  Future<void> setAmount(String activityId, DateTime date, int value) async {
+    await HiveBoxes.dailyLogsBox.put(buildLogKey(activityId, date), value);
   }
 
   /// Sum of logged amounts for [activityId] across [start]..[end] inclusive.

@@ -20,7 +20,7 @@ class StatCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final palette = AppColors.paletteFor(activity.colorIndex);
+    final palette = context.colors.paletteFor(activity.colorIndex);
     return HardShadowBox(
       color: palette.background,
       padding: const EdgeInsets.all(18),
@@ -39,7 +39,7 @@ class StatCard extends StatelessWidget {
                 Text(
                   _label,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: AppColors.subtleText,
+                        color: context.colors.subtleText,
                         fontWeight: FontWeight.w700,
                       ),
                 ),
@@ -47,7 +47,7 @@ class StatCard extends StatelessWidget {
                 Text(
                   '$total ${activity.unit}',
                   style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                        color: AppColors.ink,
+                        color: context.colors.ink,
                         fontWeight: FontWeight.w800,
                       ),
                 ),

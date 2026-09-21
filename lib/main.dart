@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'core/notifications/notification_service.dart';
@@ -6,6 +7,7 @@ import 'core/notifications/reminder_scheduler.dart';
 import 'core/router/app_router.dart';
 import 'core/settings/office_days_provider.dart';
 import 'core/settings/settings_repository.dart';
+import 'core/settings/theme_mode_provider.dart';
 import 'core/settings/trip_provider.dart';
 import 'core/storage/hive_boxes.dart';
 import 'core/theme/app_theme.dart';
@@ -89,7 +91,24 @@ class _VitalLoopAppState extends ConsumerState<VitalLoopApp> with WidgetsBinding
       title: 'Vital Loop',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
+      darkTheme: AppTheme.dark,
+      themeMode: ref.watch(themeModeProvider),
       routerConfig: appRouter,
+      // Status/navigation bar icons follow the app theme, not the phone's —
+      // otherwise dark icons vanish into the dark background.
+      builder: (context, child) {
+        final isDark = Theme.of(context).brightness == Brightness.dark;
+        final icons = isDark ? Brightness.light : Brightness.dark;
+        return AnnotatedRegion<SystemUiOverlayStyle>(
+          value: SystemUiOverlayStyle(
+            statusBarColor: Colors.transparent,
+            statusBarIconBrightness: icons,
+            systemNavigationBarColor: Colors.transparent,
+            systemNavigationBarIconBrightness: icons,
+          ),
+          child: child ?? const SizedBox.shrink(),
+        );
+      },
     );
   }
 }

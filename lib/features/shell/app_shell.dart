@@ -11,12 +11,12 @@ class AppShell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: context.colors.background,
       body: navigationShell,
       bottomNavigationBar: Container(
-        decoration: const BoxDecoration(
-          color: AppColors.navBackground,
-          border: Border(top: BorderSide(color: AppColors.navDivider, width: 1)),
+        decoration: BoxDecoration(
+          color: context.colors.navBackground,
+          border: Border(top: BorderSide(color: context.colors.navDivider, width: 1)),
         ),
         child: SafeArea(
           child: SizedBox(
@@ -65,7 +65,7 @@ class _NavItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = selected ? AppColors.navActive : AppColors.navInactive;
+    final color = selected ? context.colors.navActive : context.colors.navInactive;
     return Expanded(
       child: InkWell(
         onTap: onTap,

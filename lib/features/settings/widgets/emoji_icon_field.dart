@@ -47,9 +47,9 @@ class _EmojiIconFieldState extends State<EmojiIconField> {
           width: 64,
           height: 64,
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: context.colors.surface,
             borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: AppColors.ink, width: 2),
+            border: Border.all(color: context.colors.ink, width: 2),
           ),
           child: TextField(
             controller: _controller,
@@ -66,7 +66,7 @@ class _EmojiIconFieldState extends State<EmojiIconField> {
         Expanded(
           child: Text(
             'Tap and use your keyboard\'s emoji key to pick an icon.',
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.subtleText),
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(color: context.colors.subtleText),
           ),
         ),
       ],

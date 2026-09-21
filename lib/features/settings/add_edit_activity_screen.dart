@@ -106,7 +106,7 @@ class _AddEditActivityScreenState extends ConsumerState<AddEditActivityScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: context.colors.background,
       appBar: AppBar(
         title: Text(_isEditing ? 'Edit activity' : 'New activity'),
       ),
@@ -147,7 +147,7 @@ class _AddEditActivityScreenState extends ConsumerState<AddEditActivityScreen> {
           Text(
             'Reminders are spread evenly across this window each remind day, '
             'and stop for the day once the goal is met.',
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.subtleText),
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(color: context.colors.subtleText),
           ),
           const SizedBox(height: 10),
           ActiveWindowPicker(window: _activeWindow, onChanged: (v) => setState(() => _activeWindow = v)),
@@ -172,7 +172,7 @@ class _AddEditActivityScreenState extends ConsumerState<AddEditActivityScreen> {
             onPressed: _save,
             style: FilledButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 16),
-              backgroundColor: AppColors.navActive,
+              backgroundColor: context.colors.navActive,
             ),
             child: Text(_isEditing ? 'Save changes' : 'Add activity'),
           ),
@@ -192,7 +192,7 @@ class _ReminderSummary extends StatelessWidget {
     if (activity.activeWindow.endMinutes <= activity.activeWindow.startMinutes) {
       return Text(
         'Pick an end time after the start time.',
-        style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.streakForeground),
+        style: Theme.of(context).textTheme.bodySmall?.copyWith(color: context.colors.streakForeground),
       );
     }
     final count = reminderCountFor(activity);
@@ -207,9 +207,9 @@ class _ReminderSummary extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: AppColors.nextUpBackground,
+        color: context.colors.nextUpBackground,
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: AppColors.ink, width: 2),
+        border: Border.all(color: context.colors.ink, width: 2),
       ),
       child: Text(
         '≈$count reminder${count == 1 ? '' : 's'}/day, about every $spacing',

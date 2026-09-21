@@ -15,13 +15,13 @@ class NextUpBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     final activity = info.activity;
     return HardShadowBox(
-      color: AppColors.nextUpBackground,
+      color: context.colors.nextUpBackground,
       padding: const EdgeInsets.all(16),
       child: Row(
         children: [
-          const ActivityIconChip(
+          ActivityIconChip(
             iconValue: 'icon:clock',
-            background: AppColors.nextUpChip,
+            background: context.colors.nextUpChip,
             iconColor: Colors.white,
           ),
           const SizedBox(width: 14),
@@ -32,7 +32,7 @@ class NextUpBanner extends StatelessWidget {
                 Text(
                   'NEXT UP',
                   style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                        color: AppColors.nextUpLabel,
+                        color: context.colors.nextUpLabel,
                         fontWeight: FontWeight.w800,
                         letterSpacing: 0.6,
                       ),
@@ -41,7 +41,7 @@ class NextUpBanner extends StatelessWidget {
                 Text(
                   '${activity.name} · ${activity.perReminderAmount} ${activity.unit}',
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        color: AppColors.ink,
+                        color: context.colors.ink,
                         fontWeight: FontWeight.w700,
                       ),
                   overflow: TextOverflow.ellipsis,
@@ -50,7 +50,7 @@ class NextUpBanner extends StatelessWidget {
                 Text(
                   formatRelativeCountdown(info.time, DateTime.now()),
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: AppColors.subtleText,
+                        color: context.colors.subtleText,
                       ),
                 ),
               ],

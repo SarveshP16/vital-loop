@@ -47,13 +47,13 @@ class _NotificationPermissionCardState extends State<NotificationPermissionCard>
       margin: const EdgeInsets.only(bottom: 20),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFFFBE3C4),
+        color: context.colors.warningBackground,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: AppColors.ink, width: 2),
+        border: Border.all(color: context.colors.ink, width: 2),
       ),
       child: Row(
         children: [
-          const Icon(Icons.notifications_off_outlined, color: AppColors.ink),
+          Icon(Icons.notifications_off_outlined, color: context.colors.ink),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
@@ -63,7 +63,7 @@ class _NotificationPermissionCardState extends State<NotificationPermissionCard>
                 const SizedBox(height: 2),
                 Text(
                   'Allow exact alarms so nudges arrive on time.',
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.subtleText),
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(color: context.colors.subtleText),
                 ),
               ],
             ),
